@@ -19,12 +19,10 @@ public class PlayerController : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            moveDirection.y = 0f; // Reset vertical velocity when grounded
+            moveDirection.y = 0f;
         }
-        moveDirection.y += Physics.gravity.y * Time.deltaTime; // Apply gravity
-        controller.Move(moveDirection * Time.deltaTime); // Move the character
-
-        moveDirection = new Vector3(moveDirection.x, moveDirection.y, moveDirection.z);
+        moveDirection.y += Physics.gravity.y * Time.deltaTime;
+        controller.Move(moveDirection * Time.deltaTime);
 
     }
 
@@ -40,7 +38,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 inputVector = context.ReadValue<Vector2>();
         moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
-        moveDirection = transform.TransformDirection(moveDirection);
         moveDirection *= speed;
     }
 
