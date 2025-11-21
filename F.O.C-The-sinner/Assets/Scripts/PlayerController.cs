@@ -7,8 +7,11 @@ public class PlayerController : MonoBehaviour
     public int speed = 5;
     public CharacterController controller;
     public float Jump = 8f;
-    public Vector3 moveDirection;
+    private Vector3 moveDirection;
     public bool isGrounded;
+    public Camera playerCamera;
+
+
 
     private void Start()
     {
@@ -41,7 +44,21 @@ public class PlayerController : MonoBehaviour
         moveDirection *= speed;
     }
 
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Vector2 lookInput = context.ReadValue<Vector2>();
+        transform.Rotate(0, lookInput.x, 0);
+    }
+
+    public void OnLookVertical(InputAction.CallbackContext context)
+    {
+        Vector2 lookInput = context.ReadValue<Vector2>();
+        playerCamera.transform.Rotate(-lookInput.y, 0, 0);
+    }
+
     
+
+
 
 
 
