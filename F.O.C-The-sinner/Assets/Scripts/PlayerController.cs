@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     public int speed = 5;
     public CharacterController controller;
-    public float Jump = 8f;
+    public float jump = 8f;
+    private Vector3 velocidadVertical;
     private Vector3 moveDirection;
     public bool isGrounded;
+    public float gravityValue = -9.81f;
     public Camera playerCamera;
 
 
@@ -20,12 +22,17 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
-        if (controller.isGrounded)
+        isGrounded = controller.isGrounded;
+        if (isGrounded && velocidadVertical.y < 0)
         {
-            moveDirection.y = 0f;
+            velocidadVertical.y = 0f;
         }
-        moveDirection.y += Physics.gravity.y * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
+
+        Vector3 movimiento = transform.right * moveDirection.x + transform.forward * moveDirection.y;
+        controller.Move(movimiento * speed * Time.deltaTime);
+
+        velocidadVertical.y += gravityValue * Time.deltaTime;
+        controller.Move(velocidadVertical * Time.deltaTime);
 
     }
 
@@ -33,28 +40,16 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed && controller.isGrounded)
         {
-            moveDirection.y = Jump;
+            velocidadVertical.y = Mathf.Sqrt(jump * -2f * gravityValue);
         }
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 inputVector = context.ReadValue<Vector2>();
-        moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
-        moveDirection *= speed;
+        moveDirection = context.ReadValue<Vector2>();
     }
 
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        Vector2 lookInput = context.ReadValue<Vector2>();
-        transform.Rotate(0, lookInput.x, 0);
-    }
-
-    public void OnLookVertical(InputAction.CallbackContext context)
-    {
-        Vector2 lookInput = context.ReadValue<Vector2>();
-        playerCamera.transform.Rotate(-lookInput.y, 0, 0);
-    }
+    
 
     
 
