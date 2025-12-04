@@ -28,6 +28,7 @@ public class CamaraController : MonoBehaviour
 
         float mouseX = mouseInput.x * mouseSensitivity * Time.deltaTime * 0.1f;
         float mouseY = mouseInput.y * mouseSensitivity * Time.deltaTime * 0.1f;
+        Debug.Log("Input Y: " + mouseInput.y + " | Rotacion: " + xRotation);
 
         transform.Rotate(Vector3.up * mouseX);
 
@@ -36,7 +37,7 @@ public class CamaraController : MonoBehaviour
 
         currentXRotation = Mathf.SmoothDamp(currentXRotation, xRotation, ref xRotationVelocity, smoothTime);
 
-        cameraRoot.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        cameraRoot.localRotation = Quaternion.Euler(currentXRotation, 0f, 0f);
     }
 
 }
