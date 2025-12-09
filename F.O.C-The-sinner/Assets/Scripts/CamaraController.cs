@@ -6,38 +6,51 @@ public class CamaraController : MonoBehaviour
 
     public Transform cameraRoot;
 
-    public float mouseSensitivity = 2f;
-    public float upLimit = -70f; 
+    [Header("Configuración")]
+    public float mouseSensitivity = 200f;
+    public float upLimit = -70f;
     public float downLimit = 60f;
 
-    public float smoothTime = 0.1f;
+    //  Cuanto más alto, más tarda el cuerpo en girar (más "peso")
+    public float bodyLagTime = 0.15f;
 
-    private float xRotation = 0f;
-    private float currentXRotation;
-    private float xRotationVelocity;
+    // Variables internas
+    private float xRotation = 0f; // Mirar arriba/abajo
+    private float yRotationTarget = 0f; // A donde QUEREMOS mirar (Ratón)
+    private float currentYRotation = 0f; // Donde está el cuerpo REALMENTE
+    private float rotateVelocity; // Auxiliar para el suavizado
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        // Inicializamos las rotaciones para que no pegue un salto al empezar
+        yRotationTarget = transform.eulerAngles.y;
+        currentYRotation = transform.eulerAngles.y;
     }
 
     private void Update()
     {
-        Vector2 mouseInput = Mouse.current.delta.ReadValue();
+        // LEER EL RATÓN
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        float mouseX = mouseInput.x * mouseSensitivity * Time.deltaTime * 0.1f;
-        float mouseY = mouseInput.y * mouseSensitivity * Time.deltaTime * 0.1f;
-        Debug.Log("Input Y: " + mouseInput.y + " | Rotacion: " + xRotation);
-
-        transform.Rotate(Vector3.up * mouseX);
+        // CALCULAR OBJETIVOS 
+        yRotationTarget += mouseX; // Sumamos el giro horizontal deseado
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, upLimit, downLimit);
 
-        currentXRotation = Mathf.SmoothDamp(currentXRotation, xRotation, ref xRotationVelocity, smoothTime);
+        // MOVER EL CUERPO SUAVEMENTE
+        currentYRotation = Mathf.SmoothDampAngle(currentYRotation, yRotationTarget, ref rotateVelocity, bodyLagTime);
 
-        cameraRoot.localRotation = Quaternion.Euler(currentXRotation, 0f, 0f);
+        transform.rotation = Quaternion.Euler(0f, currentYRotation, 0f);
+
+        // MOVER LA CÁMARA (Compensación)
+        float cameraLocalY = yRotationTarget - currentYRotation;
+
+        cameraRoot.localRotation = Quaternion.Euler(xRotation, cameraLocalY, 0f);
     }
 
 }
