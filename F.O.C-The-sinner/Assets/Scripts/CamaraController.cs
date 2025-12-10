@@ -8,26 +8,21 @@ public class CamaraController : MonoBehaviour
 
     [Header("Configuración")]
     public float mouseSensitivity = 200f;
-    public float upLimit = -70f;
-    public float downLimit = 60f;
 
-    //  Cuanto más alto, más tarda el cuerpo en girar (más "peso")
-    public float bodyLagTime = 0.15f;
 
     // Variables internas
     private float xRotation = 0f; // Mirar arriba/abajo
     private float yRotationTarget = 0f; // A donde QUEREMOS mirar (Ratón)
     private float currentYRotation = 0f; // Donde está el cuerpo REALMENTE
-    private float rotateVelocity; // Auxiliar para el suavizado
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // Inicializamos las rotaciones para que no pegue un salto al empezar
-        yRotationTarget = transform.eulerAngles.y;
-        currentYRotation = transform.eulerAngles.y;
+       
+       //yRotationTarget = transform.eulerAngles.y;
+       // currentYRotation = transform.eulerAngles.y;
     }
 
     private void Update()
@@ -38,14 +33,14 @@ public class CamaraController : MonoBehaviour
 
         // CALCULAR OBJETIVOS 
         yRotationTarget += mouseX; // Sumamos el giro horizontal deseado
-
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, upLimit, downLimit);
 
-        // MOVER EL CUERPO SUAVEMENTE
-        currentYRotation = Mathf.SmoothDampAngle(currentYRotation, yRotationTarget, ref rotateVelocity, bodyLagTime);
 
-        transform.rotation = Quaternion.Euler(0f, currentYRotation, 0f);
+        //xRotation = Mathf.Clamp(xRotation, upLimit, downLimit);
+
+        transform.Rotate(Vector3.up * mouseX);
+
+        //transform.rotation = Quaternion.Euler(0f, currentYRotation, 0f);
 
         // MOVER LA CÁMARA (Compensación)
         float cameraLocalY = yRotationTarget - currentYRotation;
