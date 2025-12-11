@@ -4,62 +4,82 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public int speed = 5;
-    public CharacterController controller;
-    public float jump = 8f;
-    private Vector3 velocidadVertical;
-    private Vector3 moveDirection;
-    public bool isGrounded;
+    [Header("Configuración")]
+    public float speed = 5f;
+    public float jumpHeight = 1.5f;
     public float gravityValue = -9.81f;
-    public Camera playerCamera;
+    public float turnSmoothTime = 0.1f; // Suavizado de giro
 
+    [Header("Referencias")]
+    public CharacterController controller;
+    public Camera playerCamera; // Arrastra la Camera aquí
 
+    // Variables privadas
+    private Vector3 playerVelocity;
+    private bool isGrounded;
+    private Vector2 inputMovement; // Aquí guardamos lo que nos da OnMove
+    private float turnSmoothVelocity;
 
     private void Start()
     {
-        controller = GetComponent<CharacterController>();
+        if (controller == null) controller = GetComponent<CharacterController>();
+        if (playerCamera == null && Camera.main != null) playerCamera = Camera.main;
     }
 
     public void Update()
     {
+        // 1. Gravedad
         isGrounded = controller.isGrounded;
-        if (isGrounded && velocidadVertical.y < 0)
+        if (isGrounded && playerVelocity.y < 0)
         {
-            velocidadVertical.y = 0f;
+            playerVelocity.y = -2f;
         }
 
-        Vector3 movimiento = transform.right * moveDirection.x + transform.forward * moveDirection.y;
-        controller.Move(movimiento * speed * Time.deltaTime);
+        // Calculamos el ángulo de la cámara (solo eje Y)
+        float targetAngle = playerCamera.transform.eulerAngles.y;
 
-        velocidadVertical.y += gravityValue * Time.deltaTime;
-        controller.Move(velocidadVertical * Time.deltaTime);
+        // Giramos al personaje SIEMPRE hacia ese ángulo (suavemente)
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
+        // 2.  (Viene de OnMove)
+        Vector3 direction = new Vector3(inputMovement.x, 0f, inputMovement.y).normalized;
+
+        // 3. Mover y Rotar con respecto a la cámara
+        if (direction.magnitude >= 0.1f)
+        {
+            //// Ángulo hacia donde mira la cámara + tu input
+            //float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.transform.eulerAngles.y;
+
+            //// Suavizar giro
+            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+            //transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * direction;
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+        }
+
+        // 4. Aplicar Gravedad
+        playerVelocity.y += gravityValue * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    // --- EVENTOS DEL INPUT SYSTEM ---
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        // Guardamos el valor (Vector2) en nuestra variable para usarla en Update
+        inputMovement = context.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && controller.isGrounded)
+        if (context.performed && isGrounded)
         {
-            velocidadVertical.y = Mathf.Sqrt(jump * -2f * gravityValue);
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
         }
     }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        moveDirection = context.ReadValue<Vector2>();
-    }
-
-    
-
-    
-
-
-
-
-
-
-
-
 
 
 }
