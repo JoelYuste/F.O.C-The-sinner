@@ -35,10 +35,10 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = -2f;
         }
 
-        // Calculamos el ángulo de la cámara (solo eje Y)
+        // Calculamos el ángulo de la cámara 
         float targetAngle = playerCamera.transform.eulerAngles.y;
 
-        // Giramos al personaje SIEMPRE hacia ese ángulo (suavemente)
+        // Giramos al personaje SIEMPRE hacia ese ángulo suavemente
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
@@ -79,6 +79,14 @@ public class PlayerController : MonoBehaviour
         {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
         }
+
+        RaycastHit camaraHit;
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out camaraHit, 100f))
+        {
+            Debug.Log("Disparaste y golpeaste: " + camaraHit.collider.name);
+        }
+
+
     }
 
 

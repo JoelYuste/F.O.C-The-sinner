@@ -26,7 +26,7 @@ public class CinemachineController : MonoBehaviour
 
     private void Awake()
     {
-        // En Unity 6 usamos FindAnyObjectByType
+        
         cCam = FindAnyObjectByType<CinemachineCamera>();
         pc = FindAnyObjectByType<PlayerController>();
 
