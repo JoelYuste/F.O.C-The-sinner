@@ -900,63 +900,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4579454407841743219, guid: ea684a58cf5f1d14c84710d47448381e, type: 3}
---- !u!1001 &913877082
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 30.986948
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 36.4038
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -35.211983
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
-      propertyPath: m_Name
-      value: Wacamallo
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
 --- !u!1 &951648530 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8639916941597281197, guid: ea684a58cf5f1d14c84710d47448381e, type: 3}
@@ -1119,6 +1062,63 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5053925668127403250, guid: ea684a58cf5f1d14c84710d47448381e, type: 3}
+--- !u!1001 &1088390762
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 30.391968
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 36.4038
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -35.378845
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
+      propertyPath: m_Name
+      value: Wacamallo
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db6380d9b97d4bd4ebb7c4e90120612d, type: 3}
 --- !u!1001 &1141262494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2395,5 +2395,5 @@ SceneRoots:
   - {fileID: 1602734601}
   - {fileID: 1141262494}
   - {fileID: 810102029}
-  - {fileID: 913877082}
   - {fileID: 490266831}
+  - {fileID: 1088390762}
