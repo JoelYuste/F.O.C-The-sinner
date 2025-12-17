@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Referencias")]
     public CharacterController controller;
+    public CinemachineController cinemachineController;
     public Camera playerCamera; // Arrastra la Camera aquí
 
     // Variables privadas
@@ -63,7 +64,21 @@ public class PlayerController : MonoBehaviour
         // 4. Aplicar Gravedad
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+
+
+        RaycastHit disparo;
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out disparo, 100f))
+        {
+            //Debug.Log("Has disparado a " + disparo.transform.name);
+        }
+        if (cinemachineController.aiming && Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Pum!");
+        }
+
     }
+
 
     // --- EVENTOS DEL INPUT SYSTEM ---
 
@@ -80,14 +95,25 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
         }
 
-        RaycastHit camaraHit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out camaraHit, 100f))
-        {
-            Debug.Log("Disparaste y golpeaste: " + camaraHit.collider.name);
-        }
-
-
     }
 
 
+    private void OnDrawGizmos()
+    {
+        if (playerCamera != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 100f);
+        }
+        
+    }
+
+
+
+
+
 }
+
+
+
+

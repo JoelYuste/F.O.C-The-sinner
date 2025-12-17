@@ -9,6 +9,7 @@ public class CinemachineController : MonoBehaviour
     #region Atributos
     [Header("Referencias")]
     public Transform chest; // Asigna el pecho o la cabeza del jugador aquí
+    public bool aiming;
 
     private PlayerController pc;
     private Transform aimTarget;
@@ -47,7 +48,7 @@ public class CinemachineController : MonoBehaviour
         bool walking = (pc != null && pc.GetComponent<CharacterController>().velocity.sqrMagnitude > 0.01f);
 
         // CLIC DERECHO para apuntar
-        bool aiming = Input.GetMouseButton(1);
+        aiming = Input.GetMouseButton(1);
 
         // Posicionar el objetivo de apuntado en el centro de la pantalla
         if (aimTarget != null && Camera.main != null)

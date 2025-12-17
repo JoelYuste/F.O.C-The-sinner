@@ -1682,6 +1682,7 @@ MonoBehaviour:
   gravityValue: -9.81
   turnSmoothTime: 0.1
   controller: {fileID: 1495546851}
+  cinemachineController: {fileID: 1495546860}
   playerCamera: {fileID: 1602734600}
 --- !u!143 &1495546851
 CharacterController:
@@ -1742,6 +1743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CinemachineController
   chest: {fileID: 0}
+  aiming: 0
   aimDistance: 10
 --- !u!1 &1500995674 stripped
 GameObject:
