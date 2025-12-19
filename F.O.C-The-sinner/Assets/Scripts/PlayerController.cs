@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private Vector2 inputMovement; // Aquí guardamos lo que nos da OnMove
     private float turnSmoothVelocity;
+    float targetAngle;
+    float angle;
 
     private void Start()
     {
@@ -37,10 +39,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // Calculamos el ángulo de la cámara 
-        float targetAngle = playerCamera.transform.eulerAngles.y;
+        targetAngle = playerCamera.transform.eulerAngles.y;
 
         // Giramos al personaje SIEMPRE hacia ese ángulo suavemente
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
         // 2.  (Viene de OnMove)
@@ -74,7 +76,9 @@ public class PlayerController : MonoBehaviour
         }
         if (cinemachineController.aiming && Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Pum!");
+            Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out disparo, 100f);
+            
+            Debug.Log(disparo.point);
         }
 
     }
@@ -86,6 +90,7 @@ public class PlayerController : MonoBehaviour
     {
         // Guardamos el valor (Vector2) en nuestra variable para usarla en Update
         inputMovement = context.ReadValue<Vector2>();
+
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -96,6 +101,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    
 
 
     private void OnDrawGizmos()
